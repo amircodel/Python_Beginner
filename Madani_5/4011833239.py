@@ -1,5 +1,5 @@
 while True :
-    list = ['1) Minimum string' , '2) Little numbers counter','3) Day of year' , '4) Pricing water', '5) Armstrong', '6) Dozz Dozz' , '7) Pro Dozz Dozz']
+    list = ['1) Minimum string' , '2) Little numbers counter','3) Day of year' , '4) Pricing water', '5) Armstrong', '6) Dozz Dozz']
     for i in list :
         print()
         print(i)
@@ -155,6 +155,83 @@ while True :
                 return 'Is not Armstrong'
         print(armstrong(num))
     elif choose == 6 :
-        pass
-    elif choose == 7 :
-        pass
+        matrix = []
+        row= int(input("Enter number of rows:"))
+        for i in range(row) :
+            row_list = []
+            num = 0
+            for i in range(row) :
+                del num
+                num = '.'
+                row_list.append(num)
+            matrix.append(row_list)
+        for i in matrix :
+            print(i)
+        choosen = []
+        def pointchecker():
+            pointlist = []
+            for i in matrix :
+                for j in i :
+                    pointlist.append(j)
+            return pointlist
+        def winchecker():
+            global keled
+            from math import ceil
+            matrix1 = []
+            matrix3 = []
+            matrix4 = []
+            matrix5 = []
+            matrix6 = []
+            matrix7 = []
+            matrix8 = []
+            for i in range(row):
+                matrix1.append(matrix[i][i])
+                matrix3.append(matrix[0][i])
+                matrix4.append(matrix[i][row - 1])
+                matrix5.append(matrix[row - 1][i])
+                matrix6.append(matrix[i][0])
+                matrix7.append(matrix[(ceil(row/2) - 1)][i])
+                matrix8.append(matrix[i][(ceil(row/2) - 1)])
+            matrix2 = []
+            for i in range(row -1 , -1 , -1) :
+                matrix2.append(matrix[i][i])
+            if matrix1 == ['U','U','U'] or matrix2 == ['U','U','U'] or matrix3 == ['U','U','U'] or matrix4 == ['U','U','U'] or matrix5 == ['U','U','U'] or matrix6 == ['U','U','U'] or matrix7 == ['U','U','U'] or matrix8 == ['U','U','U'] :
+                print('YOU WON!')
+                keled = 0
+            elif matrix1 == ['C','C','C'] or matrix2 == ['C','C','C'] or matrix3 == ['C','C','C'] or matrix4 == ['C','C','C'] or matrix5 == ['C','C','C'] or matrix6 == ['C','C','C'] or matrix7 == ['C','C','C'] or matrix8 == ['C','C','C'] :
+                print('YOU LOSE!')
+                keled = 0
+        keled = 1
+        while '.' in pointchecker() and keled == 1 :
+            import random
+            # (row,col) ==> for example 2,4
+            def x21():
+                inp = input('Choose your cell (row,col): ')
+                inp = inp.split(',')
+                inpdic = dict()
+                inpdic[int(inp[0])] = int(inp[1])
+                if inpdic not in choosen :
+                    choosen.append(inpdic)
+                    for k,v in inpdic.items() :
+                        matrix[k][v] = 'U'
+                else:
+                    x21()
+            x21()
+            def x22() :
+                def genertion():
+                    global inpdic2
+                    inp2 = random.randint(0 , row - 1)
+                    inp3 = random.randint(0 , row - 1)
+                    inpdic2 = dict()
+                    inpdic2[inp2] = inp3
+                genertion()
+                if inpdic2 not in choosen :
+                    choosen.append(inpdic2)
+                    for k,v in inpdic2.items() :
+                        matrix[int(k)][int(v)] = 'C'
+                    winchecker()
+                else:
+                    x22()
+            x22()
+            for i in matrix :
+                print(i)
