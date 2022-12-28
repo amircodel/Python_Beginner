@@ -175,7 +175,7 @@ while True :
                     pointlist.append(j)
             return pointlist
         def winchecker():
-            global keled
+            global keled , keled2
             from math import ceil
             matrix1 = []
             matrix3 = []
@@ -190,18 +190,21 @@ while True :
                 matrix4.append(matrix[i][row - 1])
                 matrix5.append(matrix[row - 1][i])
                 matrix6.append(matrix[i][0])
-                matrix7.append(matrix[(ceil(row/2) - 1)][i])
-                matrix8.append(matrix[i][(ceil(row/2) - 1)])
+                # matrix7.append(matrix[(ceil(row/2) - 1)][i])
+                # matrix8.append(matrix[i][(ceil(row/2) - 1)])
             matrix2 = []
             for i in range(row -1 , -1 , -1) :
-                matrix2.append(matrix[i][i])
-            if matrix1 == ['U','U','U'] or matrix2 == ['U','U','U'] or matrix3 == ['U','U','U'] or matrix4 == ['U','U','U'] or matrix5 == ['U','U','U'] or matrix6 == ['U','U','U'] or matrix7 == ['U','U','U'] or matrix8 == ['U','U','U'] :
+                matrix2.append(matrix[(row -1)-i][i])
+            if matrix1 == ['U' for i in range(row)] or matrix2 == ['U' for i in range(row)] or matrix3 == ['U' for i in range(row)] or matrix4 == ['U' for i in range(row)] or matrix5 == ['U' for i in range(row)] or matrix6 == ['U' for i in range(row)] : # or matrix7 == ['U' for i in range(row)] or matrix8 == ['U' for i in range(row)]
                 print('YOU WON!')
                 keled = 0
-            elif matrix1 == ['C','C','C'] or matrix2 == ['C','C','C'] or matrix3 == ['C','C','C'] or matrix4 == ['C','C','C'] or matrix5 == ['C','C','C'] or matrix6 == ['C','C','C'] or matrix7 == ['C','C','C'] or matrix8 == ['C','C','C'] :
+                keled2 = 0
+            elif matrix1 == ['C' for i in range(row)] or matrix2 == ['C' for i in range(row)] or matrix3 == ['C' for i in range(row)] or matrix4 == ['C' for i in range(row)] or matrix5 == ['C' for i in range(row)] or matrix6 == ['C' for i in range(row)] : # or matrix7 == ['C' for i in range(row)] or matrix8 == ['C' for i in range(row)]
                 print('YOU LOSE!')
                 keled = 0
+                keled2 = 0
         keled = 1
+        keled2 = 1
         while '.' in pointchecker() and keled == 1 :
             import random
             # (row,col) ==> for example 2,4
@@ -229,9 +232,13 @@ while True :
                     choosen.append(inpdic2)
                     for k,v in inpdic2.items() :
                         matrix[int(k)][int(v)] = 'C'
-                    winchecker()
                 else:
-                    x22()
+                    if '.' in pointchecker():
+                        x22()
+                    else:
+                        pass
             x22()
             for i in matrix :
                 print(i)
+            if winchecker() == 0 :
+                print('Tie')
