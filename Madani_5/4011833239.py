@@ -40,9 +40,7 @@ while True :
                 mim1.append(demo[i][3])
                 mim2.append(demo[3][i])
                 mim3.append(demo[i][0])
-            print(mim,mim1,mim2,mim3)
             mim = sum(mim) + sum(mim1) + sum(mim2) + sum(mim3)
-            print(mim)
             if mig == mim :
                 print('YES')
             else:
@@ -119,23 +117,23 @@ while True :
         mas = int(input('enter used value (Per M**3): '))
         gem = input('enter type of usage (H/I/E): ')
         def mohasebe(megdar , type) :
-            # fagad beh ezayeh 100 m**3 mohasebeh shoodeh
-            if type == 'h' or gem == 'H' :
+            # fagad beh ezayeh 100 va 1000 va 1500 m**3 mohasebeh shoodeh
+            if type == 'h' or type == 'H' :
                 megdar = (megdar // 100) * 500
                 return megdar
-            if type == 'i' or gem == 'I' :
-                if megdar >= 4000000 :
+            if type == 'i' or type == 'I' :
+                if megdar <= 4000000 :
                     megdar = (megdar // 1000) * 750
                     return megdar
                 else:
-                    megdar = ((megdar - 4000000)) * 0.00025 + (4000000 // 1000) * 750
+                    megdar = ((megdar - 4000000)) * 0.00025 + ( megdar // 1000) * 750
                     return megdar
             if type == 'e' or gem == 'E' :
-                if megdar >= 2000000 :
+                if megdar <= 2000000 :
                     megdar = (megdar // 1500) * 600
                     return megdar
                 else:
-                    megdar = ((megdar - 2000000)) * 0.00004 + (2000000 // 1500) * 600
+                    megdar = ((megdar - 2000000)) * 0.00004 + ( megdar // 1500) * 600
                     return megdar
         print(mohasebe(mas,gem), 'Ryal')
     elif choose == 5 :
@@ -175,39 +173,33 @@ while True :
                     pointlist.append(j)
             return pointlist
         def winchecker():
-            global keled , keled2
-            from math import ceil
+            global keled
             matrix1 = []
+            matrix2 = []
             matrix3 = []
             matrix4 = []
-            matrix5 = []
-            matrix6 = []
-            matrix7 = []
-            matrix8 = []
             for i in range(row):
                 matrix1.append(matrix[i][i])
-                matrix3.append(matrix[0][i])
-                matrix4.append(matrix[i][row - 1])
-                matrix5.append(matrix[row - 1][i])
-                matrix6.append(matrix[i][0])
-                # matrix7.append(matrix[(ceil(row/2) - 1)][i])
-                # matrix8.append(matrix[i][(ceil(row/2) - 1)])
-            matrix2 = []
             for i in range(row -1 , -1 , -1) :
                 matrix2.append(matrix[(row -1)-i][i])
-            if matrix1 == ['U' for i in range(row)] or matrix2 == ['U' for i in range(row)] or matrix3 == ['U' for i in range(row)] or matrix4 == ['U' for i in range(row)] or matrix5 == ['U' for i in range(row)] or matrix6 == ['U' for i in range(row)] : # or matrix7 == ['U' for i in range(row)] or matrix8 == ['U' for i in range(row)]
+            for i in range(row) :
+                matrix3 = []
+                for j in range(row) :
+                    matrix3.append(matrix[j][i])
+                matrix4.append(matrix3)
+            if matrix1 == ['U' for i in range(row)] or matrix2 == ['U' for i in range(row)] or ['U' for i in range(row)] in matrix4 or ['U' for i in range(row)] in matrix :
                 print('YOU WON!')
                 keled = 0
-                keled2 = 0
-            elif matrix1 == ['C' for i in range(row)] or matrix2 == ['C' for i in range(row)] or matrix3 == ['C' for i in range(row)] or matrix4 == ['C' for i in range(row)] or matrix5 == ['C' for i in range(row)] or matrix6 == ['C' for i in range(row)] : # or matrix7 == ['C' for i in range(row)] or matrix8 == ['C' for i in range(row)]
+            elif matrix1 == ['C' for i in range(row)] or matrix2 == ['C' for i in range(row)] or ['C' for i in range(row)] in matrix4 or ['C' for i in range(row)] in matrix :
                 print('YOU LOSE!')
                 keled = 0
-                keled2 = 0
+            elif '.' not in pointchecker() :
+                print('Tie!')
+                keled = 0
         keled = 1
-        keled2 = 1
-        while '.' in pointchecker() and keled == 1 :
+        while keled == 1 :
             import random
-            # (row,col) ==> for example 2,4
+            # (row,col) ==> for example 0,1
             def x21():
                 inp = input('Choose your cell (row,col): ')
                 inp = inp.split(',')
@@ -240,5 +232,4 @@ while True :
             x22()
             for i in matrix :
                 print(i)
-            if winchecker() == 0 :
-                print('Tie')
+            winchecker()
