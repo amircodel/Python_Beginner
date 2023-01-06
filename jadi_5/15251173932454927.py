@@ -1,6 +1,7 @@
 import csv
+# For the average
+from statistics import mean 
 from collections import OrderedDict
-from statistics import mean
 from operator import itemgetter
 import itertools
 def calculate_averages(input_file_name, output_file_name):
