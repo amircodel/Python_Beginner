@@ -35,6 +35,7 @@ def fun(l):
     l = str(l)
     list = [i for i in l]
     for i in range(len(l)-1,-1,-3) :
+        # جلوگیری از جداسازی سه رقم آخر
         if i == len(l)-1 :
             continue
         else:
@@ -42,24 +43,31 @@ def fun(l):
             l = ''.join(list)
     list.clear()
     list = l.split(',')
+    # یافتن بزرگترین پیشوند
     z = (len(list) - 1) * 3
     for r in list :
+        # بقیه پیشوند ها
         if r != list[0] :
             z = ((z / 3) - 1)*3
-        if int(r) > 20 :
+        # جداسازی اعداد ساده و مرکب
+        if int(r) not in dic1.keys():
             lst = div(r)
         else:
             lst = []
             lst.append(r)
+        # نوشتن اعداد بی قاعده
         for c in lst:
             q += dic1.get(int(c))
             q += ' '
+            # جلوگیری از و ماقبل آخر
             if c != lst[len(lst)-1]:
                 q += splitor
+        # نوشتن اعداد با قاعده (پیشوند ها)
         q += dic2.get(10**z,"")
         q += ' '
         if r != list[len(list)-1]:
             q += splitor
+    # حذف و اخر جمله
     q = q.strip(splitor)
     return q
 javab = fun(n) + ' ' + 'ريال'
