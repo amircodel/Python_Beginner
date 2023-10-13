@@ -3,16 +3,16 @@ mini = 1
 maxi = 99
 hads = random.randint(mini, maxi)
 print(hads)
-j = input()
-while j != 'd':
-    if j == 'k':
+j = input().upper()
+while j != 'D':
+    if j == 'K':
         maxi = hads
-        hads = random.randint(mini + 1, maxi)
+        hads = random.randint(mini, maxi)
         print(hads)
-        j = input()
-    elif j == 'b' :
-        mini = hads
-        hads = random.randint(mini + 1, maxi)
+        j = input().upper()
+    elif j == 'B' :
+        mini = hads + 1
+        hads = random.randint(mini, maxi)
         print(hads)
-        j = input()
+        j = input().upper()
 print("gg!")
